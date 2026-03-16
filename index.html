@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC Government School</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Arial,sans-serif;overflow-x:hidden;}
+
+/* ===== Sticky Header ===== */
+.sticky-wrapper{
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background:white;
+}
+
+.upper-header{
+    background:#002147;
+    color:white;
+    padding:8px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
+}
+
+.middle-header{
+    background:white;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+}
+
+.middle-header img{
+    width:80px;
+    margin-right:15px;
+}
+
+.school-info h1{
+    color:#002147;
+    font-size:22px;
+}
+
+.school-info p{
+    font-size:14px;
+    color:#555;
+}
+
+/* ===== LOWER HEADER MENU ===== */
+
+.lower-header{
+    background:#004080;
+    position:relative;
+z-index: 999;
+}
+
+/* Menu */
+.menu{
+    display:flex;
+    justify-content:flex-start;;
+    list-style:none;
+    margin:0;
+    padding:0 20px;
+}
+
+.menu li{
+    position:relative;
+}
+
+.menu li a{
+    display:block;
+    padding:15px 20px;
+    color:white;
+    text-decoration:none;
+    font-weight:600;     /* bold */
+    letter-spacing:0.5px;
+text-transform:uppercase;
+    font-size:14px;
+}
+
+.menu li a:hover{
+    background:#00509e;
+}
+
+/* Dropdown */
+.dropdown-menu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:#003366;
+    list-style:none;
+    padding:0;
+    min-width:160px;
+}
+
+.dropdown-menu li a{
+    padding:10px 15px;
+}
+
+.dropdown:hover .dropdown-menu{
+    display:block;
+}
+.menu li:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    right:0;
+    top:25%;
+    height:50%;
+    width:1px;
+    background:rgba(255,255,255,0.3);
+}
+
+/* Toggle Button */
+.menu-toggle{
+    display:none;
+    font-size:24px;
+    color:white;
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media(max-width:768px){
+
+    .menu{
+        flex-direction: column;
+        display: none;
+        width: 100%;
+        position: absolute; /* overlay */
+        top: 100%;          /* header ke neeche */
+        left: 0;
+        background: #004080;
+        z-index: 1000;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .menu.active{
+        display:flex;
+    }
+
+    .menu-toggle{
+        display:block;
+        text-align:right;
+    }
+
+    .dropdown:hover .dropdown-menu{
+        display:none;
+    }
+
+    .dropdown.active .dropdown-menu{
+        display:block;
+        position:static;
+    }
+
+    /* Mobile: remove vertical separators and add horizontal border */
+    .menu li:not(:last-child)::after{
+        display: none; /* hide vertical line on mobile */
+    }
+
+    .menu li:not(:last-child){
+        border-bottom: 1px solid rgba(255,255,255,0.2); /* horizontal line between items */
+    }
+}
+
+/* ===== Announcement ===== */ 
+.announcement-bar{background:#ffd700;display:flex;align-items:center;padding:8px 20px;overflow:hidden;} 
+.announcement-label{display:flex;align-items:center;font-weight:bold;color:#002147;margin-right:20px;white-space:nowrap;} 
+.announcement-label svg{width:20px;height:20px;margin-right:8px;fill:#002147;} 
+.announcement-text{overflow:hidden;width:100%;} 
+.announcement-text span{font-size: 14px;font-weight: bold;display:inline-block;white-space:nowrap;animation:scrollLeft 16s linear infinite;font-weight:550;color:#002147;}
+ .announcement-text:hover span{animation-play-state: paused;}
+ @keyframes scrollLeft{0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}
+
+.announcement-label svg {
+    animation: blinkIcon 1.5s infinite; /* blink every 1.5 seconds */
+    transform-origin: center;           /* blink around center */
+}
+
+@keyframes blinkIcon {
+    0%, 50%, 100% { opacity: 1; }     /* visible */
+    25%, 75% { opacity: 0.3; }        /* semi-transparent for blink effect */
+}
+
+/* Click Here styling */
+.announcement-text .click-here {
+    font-size: 13px;        /* chhota font */
+    font-weight: bold;      /* bold */
+    color: #004080;         /* link color */
+    text-decoration: underline;
+    margin-left: 4px;       /* text se gap */
+}
+
+/* ===== Sections Animation ===== */
+.hero-section, .principal-section, .notice-section,.important-links, .toppers-section, .footer{
+    opacity:0;
+    transform:translateY(20px);
+    transition: all 0.6s ease-in-out;
+}
+.show-section{
+    opacity:1 !important;
+    transform:translateY(0) !important;
+}
+
+/* ===== Hero Section Slider ===== */
+.hero-section{display:flex;width:100%;flex-wrap:wrap;}
+.slider{position:relative;width:50%;overflow:hidden;}
+.slides{position:relative;width:100%;height:400px;}
+.slide{position:absolute;width:100%;height:100%;opacity:0;transition:opacity 1s ease-in-out;}
+.slide.active{opacity:1;}
+.slide img{width:100%;height:100%;object-fit:cover;}
+.slide-details{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    background:rgba(0,0,0,0.4);
+    color:white;
+    padding:15px 20px;
+    box-sizing:border-box;
+    opacity:0;
+    transform: translateY(20px);
+    transition:opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+.slide.active .slide-details{
+    opacity:1;
+    transform: translateY(0);
+}
+/* Navigation Buttons */
+.prev, .next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.5);
+    color:white;
+    border:none;
+    font-size:28px;
+    padding:10px 14px;
+    cursor:pointer;
+    border-radius:50%;
+    z-index:10;
+    transition:background 0.3s;
+}
+.prev:hover, .next:hover{background:rgba(0,0,0,0.8);}
+.prev{left:15px;}
+.next{right:15px;}
+
+/* About Section */
+.about{width:50%;background:#f5f5f5;padding:40px;}
+.about h2{margin-bottom:15px;color:#002147;}
+
+/* Principal Section */
+.principal-section{margin: 0px ;;width:100%;background:linear-gradient(to right,#f0f4f8,#e6edf5);}
+.principal-container{display:flex;}
+.principal-left{width:35%;background:#002147;color:white;text-align:center;padding:40px 20px;}
+.principal-frame{border:6px solid white;padding:8px;border-radius:10px;}
+.principal-frame img{width:200px;height:250px;object-fit:cover;}
+.principal-left h3{margin-top:15px;}
+.principal-right{width:65%;padding:50px;}
+.principal-right h2{margin-bottom:15px;color:#002147;}
+
+/* Notice Section */
+.notice-section{display:flex;gap:20px;padding:40px 20px;background:#f4f6f9;}
+
+.notice-box{
+flex:1;
+background:#fff;
+border-radius:10px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+overflow:hidden;
+border:3px solid #002147;
+position:relative;
+}
+
+.notice-box h3{
+background:#002147;
+color:#fff;
+padding:12px;
+text-align:center;
+}
+
+.notice-content{
+height:250px;
+overflow:hidden;
+padding:15px;
+background:#fafafa;
+position:relative;
+}
+
+.notice-content ul{
+list-style:none;
+animation:scrollUp 15s linear infinite;
+padding-right:10px;
+display:flex;
+flex-direction:column;
+}
+
+.notice-content:hover ul{
+animation-play-state: paused;
+}
+
+/* Notice Item */
+.notice-content li{
+padding:8px 0;
+border-bottom:1px dashed #bbb;
+font-size:14px;
+line-height:1.5;
+}
+
+/* Left content (bullet + date + text) */
+.notice-left{
+display:inline;
+}
+
+.notice-left svg{
+width:12px;
+height:12px;
+fill:#002147;
+margin-right:5px;
+vertical-align:middle;
+
+}
+
+/* Date badge */
+.date-badge{
+background:#002147;
+color:white;
+padding:3px 8px;
+border-radius:20px;
+font-size:12px;
+white-space:nowrap;
+margin-right:6px;
+flex-shrink:0;
+}
+
+/* Text wrap */
+.notice-left span:last-child{
+display:inline;
+word-break:break-word;
+}
+
+
+/* NEW icon */
+.new-icon{
+background:red;
+color:white;
+font-size:11px;
+padding:2px 6px;
+border-radius:15px;
+margin-left:6px;
+display:inline;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
+}
+
+@keyframes scrollUp{
+0%{transform:translateY(100%);}
+100%{transform:translateY(-100%);}
+}
+
+/* View More button */
+.view-more{position:absolute;bottom:0;right:0;width:20%;text-align:center;background:#002147;color:white;padding:8px 0;font-size:13px;cursor:pointer;text-decoration:none;box-sizing:border-box;}
+.view-more:hover{background:#004080;}
+
+/* Toppers Section */
+.toppers-section{padding:10px 20px;background:#fff8e1;text-align:center;}
+.toppers-section h2{color:#002147;margin-bottom:30px;}
+.toppers-wrapper{overflow:hidden;}
+.toppers-track{display:flex;gap:30px;animation:scrollToppers 20s linear infinite;}
+.topper-card{min-width:220px;background:white;border-radius:15px;padding:20px;box-shadow:0 8px 20px rgba(0,0,0,0.1);text-align:center;}
+.winner-frame{border:6px solid gold;padding:6px;border-radius:15px;box-shadow:0 0 20px rgba(255,215,0,0.6);margin-bottom:15px;}
+.winner-frame img{width:100%;height:220px;object-fit:cover;border-radius:10px;}
+.topper-card h4{margin:8px 0;color:#002147;}
+.topper-card p{margin:4px 0;font-weight:bold;}
+.topper-card span{display:block;margin-bottom:8px;color:#555;}
+.winner-tag{background:gold;color:#002147;padding:5px 10px;border-radius:20px;font-size:13px;font-weight:bold;}
+@keyframes scrollToppers{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ===== Footer ===== */
+
+.footer{
+background:#002147;
+color:#fff;
+font-family:Arial, sans-serif;
+margin-top:0px;
+}
+
+/* Multicolor Top Border */
+
+.color-bar{
+display:flex;
+height:6px;
+}
+
+.color-bar span{flex:1;}
+
+.c1{background:#ff4d4d;}
+.c2{background:#ffd700;}
+.c3{background:#00c853;}
+.c4{background:#2196f3;}
+
+.dark-bar{
+height:3px;
+background:rgba(255,255,255,0.3);
+}
+
+/* Footer Grid */
+
+.footer-container{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:35px;
+padding:40px 8%;
+}
+
+.footer-col{
+padding-right:20px;
+border-right:1px solid rgba(255,255,255,0.15);
+}
+
+.footer-col:last-child{
+border-right:none;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+.footer-container{
+grid-template-columns:repeat(2,1fr);
+}
+.footer-col{
+border-right:none;
+}
+}
+
+@media(max-width:600px){
+.footer-container{
+grid-template-columns:1fr;
+}
+}
+
+/* Headings */
+
+.footer-col h3{
+margin-bottom:15px;
+font-size:18px;
+border-bottom:2px solid #ffd700;
+display:inline-block;
+padding-bottom:5px;
+}
+
+/* Links */
+
+.footer-col ul{
+list-style:none;
+padding:0;
+margin:0;
+}
+
+.footer-col ul li{
+margin:10px 0;
+position:relative;
+padding-left:22px;
+}
+
+.footer-col ul li::before{
+content:"➤";
+position:absolute;
+left:0;
+color:#ffd700;
+font-size:14px;
+transition:.3s;
+}
+
+.footer-col ul li:hover::before{
+transform:translateX(4px);
+color:#fff;
+}
+
+.footer-col ul li a{
+color:#ddd;
+text-decoration:none;
+transition:.3s;
+}
+
+.footer-col ul li a:hover{
+color:#ffd700;
+padding-left:4px;
+}
+
+/* Contact */
+
+.contact-item{
+display:flex;
+align-items:center;
+margin:10px 0;
+color:#ddd;
+}
+
+.contact-item svg{
+width:18px;
+height:18px;
+margin-right:8px;
+fill:#ffd700;
+}
+
+/* Social Icons */
+
+.social-icons a{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:30px;
+height:30px;
+border-radius:50%;
+background:#ffffff20;
+margin-right:8px;
+transition:.3s;
+}
+
+.social-icons svg{
+width:18px;
+height:18px;
+fill:#fff;
+}
+
+.social-icons a:hover{
+background:#ffd700;
+}
+
+.social-icons a:hover svg{
+fill:#002147;
+}
+
+/* ===== COMPACT HALF SPLIT PILLS ===== */
+
+.footer-capsule{
+margin-top:8px;
+display:flex;
+flex-direction:column;
+gap:4px;
+align-items:flex-start;
+}
+
+.pill{
+display:inline-flex;
+border-radius:30px;
+overflow:hidden;
+font-size:11px;
+font-weight:bold;
+color:#fff;
+min-height:30px;
+}
+
+.pill-left{
+padding:2px 6px;
+white-space:nowrap;
+letter-spacing:.3px;
+display:flex;
+align-items:center;
+}
+
+.pill-right{
+padding:2px 6px;
+text-align:center;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+/* Visitors */
+
+.visitors-pill .pill-left{
+background:#ff4d4d;
+}
+
+.visitors-pill .pill-right{
+background:#ff9800;
+}
+
+/* Last Update */
+
+.update-pill .pill-left{
+background:#2196f3;
+}
+
+.update-pill .pill-right{
+background:#00c853;
+}
+
+/* Map */
+
+.contact-map{
+width:100%;
+height:150px;
+border:0;
+border-radius:6px;
+margin-top:12px;
+}
+
+/* Footer Bottom */
+
+.footer-bottom{
+text-align:center;
+padding:15px;
+border-top:1px solid rgba(255,255,255,0.2);
+font-size:14px;
+color:#ddd;
+}
+
+/* Back To Top */
+
+.top-btn{
+position:fixed;
+right:20px;
+bottom:20px;
+width:40px;
+height:40px;
+background:#ffd700;
+color:#002147;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+text-decoration:none;
+box-shadow:0 4px 12px rgba(0,0,0,0.3);
+transition:.3s;
+}
+
+.top-btn:hover{
+transform:translateY(-4px);
+background:#fff;
+}
+/* Lower Footer */
+
+.footer-lower{
+background:#00152e;
+text-align:center;
+padding:10px 10px;
+font-size:13px;
+color:#ccc;
+border-top:0px solid rgba(255,255,255,0.15);
+}
+
+.footer-lower .dev-name{
+color:#ffd700;
+font-weight:bold;
+letter-spacing:.5px;
+}
+
+.footer-lower .dev-name:hover{
+color:#fff;
+}
+/* Preloader screen */
+#preloader{
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+background:#ffffff;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:99999;
+transition:opacity .6s ease, transform .6s ease;
+}
+
+/* center content */
+.loader-wrapper{
+text-align:center;
+}
+
+/* logo with glow */
+.loader-logo{
+width:250px;
+margin-bottom:20px;
+animation:logoGlow 2s ease-in-out infinite alternate;
+}
+
+/* glow animation */
+@keyframes logoGlow{
+0%{
+transform:scale(1);
+filter:drop-shadow(0 0 0px rgba(0,33,71,0.3));
+}
+100%{
+transform:scale(1.08);
+filter:drop-shadow(0 0 15px rgba(0,33,71,0.6));
+}
+}
+
+/* progress bar */
+.loader-bar{
+width:220px;
+height:8px;
+background:#e5e5e5;
+border-radius:20px;
+overflow:hidden;
+margin:auto;
+}
+
+.loader-progress{
+height:100%;
+width:0%;
+background:#002147;
+transition:width .1s ease;
+}
+
+/* percentage */
+.loader-percent{
+margin-top:12px;
+font-size:16px;
+font-weight:600;
+color:#002147;
+}
+.loading-text{
+margin-top:10px;
+font-size:16px;
+font-weight:600;
+color:#002147;
+letter-spacing:1px;
+}
+/* Responsive */
+@media(max-width:768px){
+.hero-section{flex-direction:column;}
+.slider,.about{width:100%;}
+.principal-container{flex-direction:column;}
+.principal-left,.principal-right{width:100%;}
+.notice-section{flex-direction:column;}
+.slide-details{text-align:center;font-size:14px;padding:10px 15px;}
+.prev,.next{font-size:24px;padding:8px 10px;}
+.footer-content{flex-direction:column;gap:20px;}
+}
+
+
+/* ===== Full Width Section ===== */
+.important-links {
+    width: 100%;
+    padding: 10px 5%; /* top padding kam karke capsule top par */
+    background: #eef4f1;
+    text-align: center; /* center align capsule */
+  
+}
+
+/* Capsule Title with Lines */
+.important-links .section-title {
+    position: relative;
+    display: inline-block;
+    padding: 10px 25px; /* chhota capsule */
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #002147;
+    border-radius: 50px;
+    margin: 0 0 30px 0;
+}
+
+/* Lines attached to capsule */
+.important-links .section-title::before,
+.important-links .section-title::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 120px;
+    height: 2px;
+    background-color: #002147;
+    transform: translateY(-50%);
+}
+
+.important-links .section-title::before {
+    right: 100%;
+    margin-right: 0;
+}
+
+.important-links .section-title::after {
+    left: 100%;
+    margin-left: 0;
+}
+
+
+
+/* Grid */
+
+.quick-links{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:16px;
+}
+
+/* Tabs */
+
+.link-tab{
+display:flex;
+flex-direction: column;
+align-items:center;
+gap:4px;
+background:#fff;
+padding:16px;
+border-radius:10px;
+text-decoration:none;
+color:#002147;
+font-weight:600;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+border-left:5px solid #ffd700;
+transition:.3s;
+}
+
+/* Icon */
+
+.link-tab svg{
+width:26px;
+height:26px;
+fill:#002147;
+}
+
+/* Hover */
+
+.link-tab:hover{
+background:#002147;
+color:#fff;
+transform:translateY(-3px);
+}
+
+.link-tab:hover svg{
+fill:#ffd700;
+}
+.tick-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background: #28a745;  /* green */
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* ===== Section ===== */
+
+.social-media{
+padding:60px 5%;
+background:#eef4f1;
+text-align:center;
+font-family:Arial;
+}
+
+/* ===== Section ===== */
+
+.social-media{
+padding:40px 5% 60px;
+background:#eef4f1;
+text-align:center;
+font-family:Arial;
+position:relative;
+}
+
+/* ===== Section ===== */
+
+.social-media{
+padding:10px 5% 60px;
+background-color:#f9fbfd;
+
+/* Very Light Sarkari Texture */
+
+background-image:
+radial-gradient(rgba(0,33,71,0.03) 1px, transparent 1px);
+
+background-size:16px 16px;
+
+text-align:center;
+font-family:Arial;
+}
+
+/* ===== Capsule Title ===== */
+
+.social-title{
+display:inline-block;
+position:relative;
+margin-bottom:40px;
+}
+
+.social-title span{
+background:#002147;
+color:#fff;
+font-size: 18px;
+padding:10px 25px;
+border-radius:50px;
+font-weight:600;
+position:relative;
+display:inline-block;
+}
+
+/* Lines merged with capsule */
+
+.social-title span::before,
+.social-title span::after{
+content:"";
+position:absolute;
+top:50%;
+width:120px;
+height:2px;
+background:#002147;
+transform:translateY(-50%);
+}
+
+.social-title span::before{
+right:100%;
+}
+
+.social-title span::after{
+left:100%;
+}
+
+/* ===== Layout ===== */
+
+.social-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:35px;
+}
+
+/* ===== Frame ===== */
+
+.frame{
+position:relative;
+border:3px solid;
+border-radius:14px;
+background:#fff;
+overflow:visible;
+margin-top:30px;
+height:250px;
+transition:.3s;
+}
+
+.frame:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Facebook */
+
+.fb-frame{
+border-color:#1877f2;
+}
+
+/* YouTube */
+
+.yt-frame{
+border-color:#ff0000;
+}
+
+/* ===== Badge ===== */
+
+.badge{
+position:absolute;
+top:-25px;
+left:50%;
+transform:translateX(-50%);
+width:50px;
+height:50px;
+border-radius:50%;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+border:3px solid;
+}
+
+/* Facebook icon */
+
+.fb-frame .badge{
+border-color:#1877f2;
+}
+
+.fb-frame svg{
+fill:#1877f2;
+width:24px;
+}
+
+/* YouTube icon */
+
+.yt-frame .badge{
+border-color:#ff0000;
+}
+
+.yt-frame svg{
+fill:#ff0000;
+width:24px;
+}
+
+/* iframe */
+
+iframe{
+width:100%;
+height:100%;
+border:none;
+}
+.frame iframe{
+width:100%;
+display:block;
+border:none;
+border-radius:11px;
+}
+
+/* ===== Mobile ===== */
+
+@media(max-width:768px){
+
+.social-grid{
+grid-template-columns:1fr;
+}
+
+}
+</style>
+</head>
+<body>
+<div id="preloader">
+  <div class="loader-wrapper">
+    <img src="C:\Users\Hp\Downloads\bhu-logo.png" class="loader-logo" alt="logo">
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+</div>
+    <div class="loader-percent">0%</div>
+    <p class="loading-text">Loading...</p>
+  </div>
+</div>
+<div class="upper-header">
+    <div>
+        <select>
+            <option>English</option>
+            <option>Hindi</option>
+        </select>
+    </div>
+    <div>Screen Reader Access</div>
+</div>
+
+<div class="middle-header">
+    <img src="https://picsum.photos/80" alt="Logo">
+    <div class="school-info">
+        <h1>ABC Government School</h1>
+        <p>City, State - 000000</p>
+    </div>
+</div>
+<div class="sticky-wrapper">
+<div class="lower-header">
+
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+
+        <li class="dropdown">
+            <a href="#">Admission ▾</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Apply Online</a></li>
+                <li><a href="#">Fee Structure</a></li>
+            </ul>
+        </li>
+
+        <li><a href="#">Notice</a></li>
+        <li><a href="#">Contact</a></li>
+       <li><a href="#">Download's</a></li>
+    </ul>
+
+</div>
+
+<div class="announcement-bar">
+    <div class="announcement-label">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 11v2a2 2 0 0 0 2 2h2l6 4V5L7 9H5a2 2 0 0 0-2 2z"/>
+  <line x1="16" y1="9" x2="20" y2="7"/>
+  <line x1="16" y1="15" x2="20" y2="17"/>
+</svg>
+        Announcement
+    </div>
+    <div class="announcement-text">
+   <span class="scroll-item">
+    Admission Open 2026 <a href="admission.html" class="click-here">Click Here</a>
+    &nbsp;|&nbsp;
+    Annual Function on 25 March <a href="event.html" class="click-here">Click Here</a>
+    &nbsp;|&nbsp;
+    Exam Schedule Released <a href="exam.html" class="click-here">Click Here</a>
+    &nbsp;|&nbsp;
+    Sports Day Registration Started <a href="sports.html" class="click-here">Click Here</a>
+</span>
+    </div>
+</div>
+</div>
+
+<!-- Hero Section with Slider -->
+<div class="hero-section">
+    <div class="slider">
+        <div class="slides">
+            <div class="slide active">
+                <img src="https://picsum.photos/800/400?1">
+                <div class="slide-details">
+                    <h3>School Playground</h3>
+                    <p>Our spacious and green playground for sports and activities.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?2">
+                <div class="slide-details">
+                    <h3>Science Lab</h3>
+                    <p>Equipped lab to encourage practical learning and experiments.</p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?3">
+                <div class="slide-details">
+                    <h3>Annual Function</h3>
+                    <p>Celebrating student talents with colorful performances.</p>
+                </div>
+            </div>
+        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+    </div>
+    <div class="about">
+        <h2>About Our School</h2>
+        <p>
+            Hamara school shiksha ke kshetra me utkrisht parinam deta hai.
+            Yahan anushasan aur sanskar par vishesh dhyan diya jata hai.
+        </p>
+    </div>
+</div>
+
+<!-- Principal Section -->
+<section class="principal-section">
+    <div class="principal-container">
+        <div class="principal-left">
+            <div class="principal-frame">
+                <img src="https://picsum.photos/200/250" alt="Principal">
+            </div>
+            <h3>Mr. Rajesh Sharma</h3>
+            <p>Principal</p>
+        </div>
+        <div class="principal-right">
+            <h2>Principal's Message</h2>
+            <p>
+                Hamara lakshya vidyarthiyon ko gunvatta yukt shiksha pradan karna
+                aur unka vyaktitva vikas karna hai.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Notice Section -->
+<div class="notice-section">
+    <div class="notice-box">
+        <h3>Latest Notices 🔔</h3>
+        <div class="notice-content">
+            <ul class="notice-list">
+                <li data-date="2026-03-03">Admission Open 2026</li>
+                <li data-date="2026-03-01">Annual Function 25 March</li>
+                <li data-date="2026-02-28">Exam Schedule Released</li>
+                <li data-date="2026-02-25">Sports Day Announcement</li>
+                <li data-date="2026-02-20">Holiday Notice</li>
+            </ul>
+            <a class="view-more" href="#">View More +</a>
+        </div>
+    </div>
+
+    <div class="notice-box">
+        <h3>Events 📅</h3>
+        <div class="notice-content">
+            <ul class="notice-list">
+                <li data-date="2026-03-02">Science Exhibition</li>
+                <li data-date="2026-02-28">Debate Competition</li>
+                <li data-date="2026-02-26">Republic Day Celebration</li>
+                <li data-date="2026-02-24">Independence Day Function</li>
+                <li data-date="2026-02-20">Cultural Program</li>
+                <li data-date="2026-03-05">yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</li>
+            </ul>
+            <a class="view-more" href="#">View More +</a>
+        </div>
+    </div>
+
+    <div class="notice-box">
+        <h3>Achievements 🏆</h3>
+        <div class="notice-content">
+            <ul class="notice-list">
+                <li data-date="2026-03-01">District Topper 2025</li>
+                <li data-date="2026-02-27">Best School Award</li>
+                <li data-date="2026-02-25">State Sports Winner</li>
+                <li data-date="2026-02-23">100% Board Result</li>
+                <li data-date="2026-02-20">Scholarship Winners</li>
+                 <li data-date="2026-03-05">yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</li>
+            </ul>
+            <a class="view-more" href="#">View More +</a>
+        </div>
+    </div>
+</div>
+<!-- ===== Important Links Section ===== -->
+
+<section class="important-links">
+
+<h2 class="section-title">Important Links</h2>
+
+<div class="quick-links">
+
+<a href="#" target="_blank" class="link-tab">
+<svg viewBox="0 0 24 24"><path d="M3 13h18v-2H3v2zm0 6h18v-2H3v2zM3 5v2h18V5H3z"/></svg>
+Latest Notice
+</a>
+
+<a href="#" target="_blank" class="link-tab">
+<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14l4-4h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+Admission 2026
+</a>
+
+<a href="#" target="_blank" class="link-tab">
+<svg viewBox="0 0 24 24"><path d="M3 17h3v-7H3v7zm5 0h3V7H8v10zm5 0h3v-4h-3v4zm5 0h3V4h-3v13z"/></svg>
+Exam Result
+</a>
+
+<a href="#" target="_blank" class="link-tab">
+<svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+Scholarship
+</a>
+
+<a href="#" target="_blank" class="link-tab">
+<svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14
+c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6
+c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+Exam Schedule
+</a>
+
+<a href="#" target="_blank" class="link-tab">
+<svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16
+c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6z"/></svg>
+Download Forms
+</a>
+
+</div>
+</section>
+
+<!-- ===== Social Media Section ===== -->
+
+<section class="social-media">
+
+<h2 class="social-title">
+<span>Social Media</span>
+</h2>
+
+<div class="social-grid">
+
+<!-- Facebook -->
+
+<div class="frame fb-frame">
+
+<div class="badge">
+<svg viewBox="0 0 24 24">
+<path d="M22 12a10 10 0 10-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12H16l-.4 3h-2v7A10 10 0 0022 12z"/>
+</svg>
+</div>
+
+<iframe 
+src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/facebook&tabs=timeline&adapt_container_width=true&width=600&height=350"
+width="100%"
+height="350"
+style="border:none;overflow:hidden"
+scrolling="no"
+frameborder="0">
+</iframe>
+</div>
+
+
+<!-- YouTube -->
+
+<div class="frame yt-frame">
+
+<div class="badge">
+<svg viewBox="0 0 24 24">
+<path d="M23.5 6.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.3-1C17 2.5 12 2.5 12 2.5s-5 0-8.3.4c-.5.1-1.5.1-2.3 1C.7 4.6.5 6.2.5 6.2S0 8.1 0 10v2c0 1.9.5 3.8.5 3.8s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 8 .4 8 .4s5 0 8.3-.4c.5-.1 1.5-.1 2.3-1 .7-.7.9-2.3.9-2.3S24 13.9 24 12v-2c0-1.9-.5-3.8-.5-3.8zM9.5 14.5v-5l5 2.5-5 2.5z"/>
+</svg>
+</div>
+
+<iframe 
+src="https://www.youtube.com/embed?listType=user_uploads&list=YouTube">
+
+</iframe>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Toppers Section -->
+<section class="toppers-section">
+    <h2>Our Toppers</h2>
+    <div class="toppers-wrapper">
+        <div class="toppers-track">
+            <div class="topper-card">
+                <div class="winner-frame">
+                    <img src="https://picsum.photos/200/220?1">
+                </div>
+                <h4>Rahul Verma</h4>
+                <p>Class 10th</p>
+                <span>Year 2025</span>
+                <div class="winner-tag">🏆 School Topper</div>
+            </div>
+            <div class="topper-card">
+                <div class="winner-frame">
+                    <img src="https://picsum.photos/200/220?2">
+                </div>
+                <h4>Pooja Singh</h4>
+                <p>Class 12th</p>
+                <span>Year 2025</span>
+                <div class="winner-tag">🏆 School Topper</div>
+            </div>
+            <div class="topper-card">
+                <div class="winner-frame">
+                    <img src="https://picsum.photos/200/220?3">
+                </div>
+                <h4>Amit Kumar</h4>
+                <p>Class 8th</p>
+                <span>Year 2024</span>
+                <div class="winner-tag">🏆 School Topper</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<section id="footer-section">
+<footer class="footer">
+<div class="color-bar">
+<span class="c1"></span>
+<span class="c2"></span>
+<span class="c3"></span>
+<span class="c4"></span>
+</div>
+
+<div class="dark-bar"></div>
+
+<div class="footer-container">
+
+<!-- Column 1 -->
+
+<div class="footer-col">
+<h3>About College</h3>
+<p>Our college provides quality education with modern facilities and experienced faculty.</p>
+</div>
+
+<!-- Column 2 -->
+
+<div class="footer-col">
+<h3>Quick Links</h3>
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">Admission</a></li>
+<li><a href="#">Courses</a></li>
+<li><a href="#">Notice Board</a></li>
+<li><a href="#">Gallery</a></li>
+</ul>
+</div>
+
+<!-- Column 3 -->
+
+<div class="footer-col">
+<h3>Contact Us</h3>
+
+<div class="contact-item">
+<svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13"/></svg>
+<span>City, State - 000000</span>
+</div>
+
+<div class="contact-item">
+<svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.7 3.6 4.9 6.3 6.3"/></svg>
+<span>+91 9876543210</span>
+</div>
+
+<div class="contact-item">
+<svg viewBox="0 0 24 24"><path d="M20 4H4v16h16"/></svg>
+<span>info@college.com</span>
+</div>
+
+<iframe class="contact-map"
+src="https://maps.google.com/maps?q=india&t=&z=13&ie=UTF8&iwloc=&output=embed">
+</iframe>
+
+</div>
+
+<!-- Column 4 -->
+
+<div class="footer-col">
+<h3>Follow Us</h3>
+
+<div class="social-icons">
+<a href="#"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9"/></svg></a>
+<a href="#"><svg viewBox="0 0 24 24"><path d="M23 7l-8 5 8 5V7z"/></svg></a>
+<a href="#"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10"/></svg></a>
+</div>
+
+<div class="footer-capsule">
+
+<div class="pill visitors-pill">
+<div class="pill-left">TOTAL VISITORS</div>
+<div class="pill-right"><span id="visitor-count">0</span></div>
+</div>
+
+<div class="pill update-pill">
+<div class="pill-left">LAST UPDATED</div>
+<div class="pill-right">
+<span id="update-date"></span>
+<span id="update-time"></span>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 Your College Name | All Rights Reserved
+</div>
+<div class="footer-lower">
+    <p>
+        Designed & Developed By 
+        <span class="dev-name">Your Name / Organization</span>
+    </p>
+</div>    
+</footer>
+</section>
+<a href="#" class="top-btn">↑</a>
+
+<script>
+/* Visitor Counter */
+
+let count = localStorage.getItem("visitorCount");
+
+if(count){
+count++;
+}else{
+count = 1;
+}
+
+localStorage.setItem("visitorCount",count);
+
+document.getElementById("visitor-count").innerText = count;
+
+/* Last Updated Date + Time */
+
+let d = new Date(document.lastModified);
+
+let date = d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});
+let time = d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"});
+
+document.getElementById("update-date").innerText = date;
+document.getElementById("update-time").innerText = time;
+
+</script>
+<script>
+// Fade/slide on scroll
+const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("show-section");}});
+},{threshold:0.2});
+document.querySelectorAll(".hero-section, .principal-section, .notice-section, .important-links, .toppers-section, .footer").forEach(el=>observer.observe(el));
+</script>
+<script>
+// Dynamic notices with NEW icon
+document.querySelectorAll(".notice-box").forEach(box=>{
+    const list=box.querySelector(".notice-list");
+    let latestCount=1;
+    if(box.querySelector("h3").textContent.includes("Events")) latestCount=5;
+    if(box.querySelector("h3").textContent.includes("Achievements")) latestCount=2;
+const notices = Array.from(list.querySelectorAll("li"));
+notices.sort((a,b)=>{
+    return new Date(b.dataset.date) - new Date(a.dataset.date);
+});
+list.innerHTML = "";  // Clear after sorting
+    notices.forEach((notice,index)=>{
+        const leftDiv=document.createElement("div");
+        leftDiv.classList.add("notice-left");
+        const tickBadge = document.createElement("span");
+tickBadge.classList.add("tick-badge");   // CSS class
+tickBadge.innerHTML = "&#10003;";       // ✔ check mark
+leftDiv.appendChild(tickBadge);
+        const dateBadge=document.createElement("span");
+        dateBadge.classList.add("date-badge");
+        const date=new Date(notice.dataset.date);
+        const dd=String(date.getDate()).padStart(2,'0');const mm=String(date.getMonth()+1).padStart(2,'0');const yyyy=date.getFullYear();
+        dateBadge.textContent=`${dd}-${mm}-${yyyy}`;
+        leftDiv.appendChild(dateBadge);
+        const text=document.createElement("span");
+        text.textContent=notice.textContent;
+        leftDiv.appendChild(text);
+        notice.textContent='';
+        notice.appendChild(leftDiv);
+        if(index<latestCount){
+            const newIcon=document.createElement("span");
+            newIcon.classList.add("new-icon");
+            newIcon.textContent="NEW";
+            notice.appendChild(newIcon);
+        }
+        list.appendChild(notice);
+    });
+});
+</script>
+<script>
+// Slider JS
+const slides=document.querySelectorAll('.slide');
+let currentSlide=0;
+function showSlide(index){
+    slides.forEach((slide,i)=>{slide.classList.remove('active');});
+    slides[index].classList.add('active');
+}
+document.querySelector('.prev').addEventListener('click',()=>{
+    currentSlide=(currentSlide-1+slides.length)%slides.length;
+    showSlide(currentSlide);
+});
+document.querySelector('.next').addEventListener('click',()=>{
+    currentSlide=(currentSlide+1)%slides.length;
+    showSlide(currentSlide);
+});
+setInterval(()=>{
+    currentSlide=(currentSlide+1)%slides.length;
+    showSlide(currentSlide);
+},5000);
+</script>
+<script>
+function toggleMenu(){
+    document.querySelector(".menu").classList.toggle("active");
+}
+
+document.querySelectorAll(".dropdown > a").forEach(item=>{
+    item.addEventListener("click", function(e){
+        if(window.innerWidth <= 768){
+            e.preventDefault();
+            this.parentElement.classList.toggle("active");
+        }
+    });
+});
+// Toggle menu
+function toggleMenu(){
+    const menu = document.querySelector(".menu");
+    menu.classList.toggle("active");
+}
+
+// Close menu on click outside
+document.addEventListener("click", function(event){
+    const menu = document.querySelector(".menu");
+    const toggle = document.querySelector(".menu-toggle");
+    // Agar click menu ya toggle button ke bahar hai aur menu open hai
+    if(menu.classList.contains("active") && !menu.contains(event.target) && !toggle.contains(event.target)){
+        menu.classList.remove("active");
+    }
+});
+// Close menu on scroll
+window.addEventListener("scroll", function(){
+    const menu = document.querySelector(".menu");
+    if(menu.classList.contains("active")){
+        menu.classList.remove("active");
+    }
+});
+
+window.addEventListener("load", function(){
+
+let progress = 0;
+let percentText = document.querySelector(".loader-percent");
+let progressBar = document.querySelector(".loader-progress");
+
+let loader = setInterval(function(){
+
+progress += 5;
+
+percentText.innerText = progress + "%";
+progressBar.style.width = progress + "%";
+
+if(progress >= 100){
+
+clearInterval(loader);
+
+setTimeout(function(){
+
+let preloader = document.getElementById("preloader");
+
+preloader.style.opacity="0";
+preloader.style.transform="translateY(-100%)";
+
+setTimeout(function(){
+preloader.style.display="none";
+},600);
+
+},400);
+
+}
+
+},80);
+
+});
+</script>
+<script>
+document.querySelector('.top-btn').addEventListener('click', function(e){
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
