@@ -1480,7 +1480,7 @@ document.querySelectorAll(".hero-section, .principal-section, .notice-section, .
 // Dynamic notices with NEW icon
 document.querySelectorAll(".notice-box").forEach(box=>{
     const list=box.querySelector(".notice-list");
-    let latestCount=1;
+    let latestCount=5;
     if(box.querySelector("h3").textContent.includes("Events")) latestCount=5;
     if(box.querySelector("h3").textContent.includes("Achievements")) latestCount=2;
 const notices = Array.from(list.querySelectorAll("li"));
