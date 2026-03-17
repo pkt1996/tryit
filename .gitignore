@@ -1,6 +1,19 @@
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
-.env*
-!.env.example
+<script>
+  // Maintenance mode: true = show maintenance page
+  var isMaintenance = true;
+
+  if(isMaintenance) {
+    // Fetch external maintenance.html and replace body
+    fetch('maintenance.html')
+      .then(response => response.text())
+      .then(html => {
+        document.open();
+        document.write(html);
+        document.close();
+      })
+      .catch(err => {
+        document.body.innerHTML = "<h1>Error loading maintenance page</h1>";
+        console.error(err);
+      });
+  }
+</script>
