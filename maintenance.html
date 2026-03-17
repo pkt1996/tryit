@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maintenance</title>
+
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  height:100%;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#f4b183,#e69138);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Card */
+.maintenance-card{
+  background:#ffffff;
+  padding:50px 40px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  text-align:center;
+  max-width:500px;
+  width:90%;
+}
+
+/* Icon */
+.icon{
+  font-size:70px;
+  margin-bottom:15px;
+}
+
+/* Title */
+.title{
+  font-size:28px;
+  font-weight:bold;
+  color:#8a3f00;
+  margin-bottom:10px;
+}
+
+/* Message */
+.msg{
+  font-size:16px;
+  color:#5a2e00;
+  margin-bottom:25px;
+  line-height:1.5;
+}
+
+/* School */
+.school{
+  font-size:14px;
+  color:#999;
+  margin-top:10px;
+}
+
+/* Pulse dot */
+.dot{
+  display:inline-block;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#e69138;
+  margin-left:5px;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:0.3}
+  50%{opacity:1}
+  100%{opacity:0.3}
+}
+
+@media(max-width:500px){
+  .maintenance-card{
+    padding:40px 25px;
+  }
+  .title{font-size:24px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="maintenance-card">
+  
+  <div class="icon">🛠️</div>
+  
+  <div class="title">
+    System Under Maintenance
+  </div>
+  
+  <div class="msg">
+    We are currently upgrading our server to improve performance and security.<br>
+    Please try again after some time.
+    <span class="dot"></span>
+  </div>
+  
+  <div class="school">
+    © 2026 ABC Public School
+  </div>
+
+</div>
+
+</body>
+</html>
